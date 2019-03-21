@@ -1,0 +1,6 @@
+[submodule "Documents/Workspace/filler/libft"]
+	path = Documents/Workspace/filler/libft
+	url = https://github.com/PieerotGG/libft.git
+[submodule "Documents/Workspace/fdf/libft"]
+	path = Documents/Workspace/fdf/libft
+	url = https://github.com/PieerotGG/libft.git

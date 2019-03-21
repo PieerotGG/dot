@@ -1,3 +1,6 @@
+let g:python2_host_prog = '/Users/pguthaus/.brew/bin/python'
+let g:python3_host_prog = '/Users/pguthaus/.brew/bin/python3'
+
 " Plugins
 call plug#begin('~/.local/share/nvim/plugged')
 	" Gruvbox theme
@@ -7,6 +10,9 @@ call plug#begin('~/.local/share/nvim/plugged')
 	Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
 	Plug 'Xuyuanp/nerdtree-git-plugin'
 
+	" LLDB
+	Plug 'dbgx/lldb.nvim'
+
 	" Language client
 	Plug 'autozimu/LanguageClient-neovim', {
 		\'branch': 'next',
@@ -14,16 +20,11 @@ call plug#begin('~/.local/share/nvim/plugged')
 	\}
 
 	" Deoplete completion menu
-	if has('nvim')
-  		Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-	else
-  		Plug 'Shougo/deoplete.nvim'
-  		Plug 'roxma/nvim-yarp'
- 	 	Plug 'roxma/vim-hug-neovim-rpc'
-	endif
+  	Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 	let g:deoplete#enable_at_startup = 1
 	Plug 'Shougo/neosnippet.vim'
 	Plug 'Shougo/neosnippet-snippets'
+	let g:neosnippet#enable_complete_done = 1
 
 	" Multi-entry selection UI. FZF
 	Plug 'junegunn/fzf', { 'dir': '~/sgoinfre/.fzf', 'do': './install --all' }
@@ -37,9 +38,6 @@ call plug#begin('~/.local/share/nvim/plugged')
 
 	" 42 headers
 	Plug 'pbondoer/vim-42header'
-
-	" LLDB
-	Plug 'dbgx/lldb.nvim'
 call plug#end()
 
 " turn hybrid line numbers on
@@ -83,6 +81,7 @@ call NERDTreeHighlightFile('php', 'Magenta', 'none', '#ff00ff', '#151515')
 let g:LanguageClient_serverCommands = {
     \ 'cpp': ['cquery', '--log-file=/tmp/cq.log'],
     \ 'c': ['cquery', '--log-file=/tmp/cq.log'],
+    \ 'rust': ['rls']
     \ }
 
 let g:LanguageClient_loadSettings = 1 " Use an absolute configuration path if you want system-wide settings
@@ -99,6 +98,7 @@ nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
 nnoremap <silent> gr :call LanguageClient#textDocument_references()<CR>
 nnoremap <silent> gs :call LanguageClient#textDocument_documentSymbol()<CR>
 nnoremap <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
+
 
 " Indentation
 set autoindent noexpandtab tabstop=4 shiftwidth=4
